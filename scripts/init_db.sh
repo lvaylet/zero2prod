@@ -33,8 +33,7 @@ if [[ -z "${SKIP_DOCKER}" ]]; then
     -e POSTGRES_PASSWORD=${DB_PASSWORD} \
     -e POSTGRES_DB=${DB_NAME} \
     -p "${DB_PORT}:5432" \
-    -d \
-    --name postgres \
+    -d postgres \
     postgres -N 1000
   # ^ Increased maximum number of connections for testing purposes
 fi
