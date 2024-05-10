@@ -1,12 +1,27 @@
 repos:
--   repo: https://github.com/doublify/pre-commit-rust
-    rev: v1.0
-    hooks:
-    -   id: fmt
-    -   id: cargo-check
-    -   id: clippy
 -   repo: local
     hooks:
+    -   id: fmt
+        name: cargo fmt
+        description: Format code according to style guidelines.
+        entry: cargo fmt --
+        language: system
+        files: \.rs$
+        args: []
+    -   id: check
+        name: cargo check
+        description: Check current package for errors.
+        entry: cargo check
+        language: system
+        files: \.rs$
+        pass_filenames: false
+    -   id: clippy
+        name: cargo clippy
+        description: Lint current package.
+        entry: cargo clippy -- -D warnings
+        language: system
+        files: \.rs$
+        pass_filenames: false
     -   id: sqlx-prepare
         name: cargo sqlx prepare
         description: Check that SQL query metadata is up-to-date.
