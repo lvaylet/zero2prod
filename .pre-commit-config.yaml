@@ -5,3 +5,11 @@ repos:
     -   id: fmt
     -   id: cargo-check
     -   id: clippy
+-   repo: local
+    hooks:
+    -   id: sqlx-prepare
+        name: cargo sqlx prepare
+        description: Check that SQL query metadata is up-to-date.
+        entry: cargo sqlx prepare --workspace --check
+        language: system
+        pass_filenames: false
