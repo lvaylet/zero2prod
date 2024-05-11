@@ -1,0 +1,15 @@
+.env
+migrations/
+scripts/
+target/
+tests/
+
+Dockerfile
+.dockerignore
+
+.git/
+.gitignore
+
+.github/
+
+.pre-commit-config.yaml
