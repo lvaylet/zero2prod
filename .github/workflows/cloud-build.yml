@@ -1,0 +1,48 @@
+name: Build, tag and push image to Artifact Registry using Cloud Build
+
+on:
+  push:
+    branches:
+    - main
+
+env:
+  REGION: europe-west9
+  AR_REPO_NAME: docker
+  IMAGE_NAME: zero2prod
+  SERVICE_ACCOUNT_NAME: github-actions # with `Cloud Build Service Account` role
+
+jobs:
+  cloud-build:
+    name: Cloud Build
+    runs-on: ubuntu-latest
+
+    # Add "id-token" with the intended permissions.
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+    # Checkout MUST come before auth.
+    - name: Checkout
+      id: checkout
+      uses: actions/checkout@v4
+
+    # Authenticate to GCP with Workload Identity Federation.
+    - name: Authenticate to Google Cloud
+      id: auth
+      uses: google-github-actions/auth@v2
+      with:
+        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+        service_account: ${{ env.SERVICE_ACCOUNT_NAME }}@${{ secrets.PROJECT_ID }}.iam.gserviceaccount.com
+    
+    - name: Set up Google Cloud CLI
+      uses: google-github-actions/setup-gcloud@v2
+    
+    - name: Submit build
+      env:
+        PROJECT_ID: ${{ secrets.PROJECT_ID }}
+      run: |-
+        gcloud builds submit \
+          --quiet \
+          --tag "${REGION}-docker.pkg.dev/${PROJECT_ID}/${AR_REPO_NAME}/${IMAGE_NAME}:${GITHUB_SHA}" \
+          --tag "${REGION}-docker.pkg.dev/${PROJECT_ID}/${AR_REPO_NAME}/${IMAGE_NAME}:latest"
