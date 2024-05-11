@@ -28,7 +28,7 @@ RUN apt-get update -y \
 COPY --from=builder /app/target/release/zero2prod zero2prod
 COPY configuration configuration
 ENV APP_ENVIRONMENT production
-ENTRYPOINT [".zero2prod"]
+ENTRYPOINT ["./zero2prod"]
 
 # At this point, the `zero2prod` image only weighs 98MB:
 # $ docker images
