@@ -1,6 +1,6 @@
 steps:
 - name: gcr.io/cloud-builders/docker
-  script:
+  script: |
     docker pull \
       europe-west9-docker.pkg.dev/zero2prod-f45ac1/docker/zero2prod:latest || exit 0
 
