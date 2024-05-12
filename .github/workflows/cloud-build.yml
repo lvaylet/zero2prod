@@ -39,10 +39,5 @@ jobs:
       uses: google-github-actions/setup-gcloud@v2
     
     - name: Submit build
-      env:
-        PROJECT_ID: ${{ secrets.PROJECT_ID }}
       run: |-
-        gcloud builds submit \
-          --quiet \
-          --tag "${REGION}-docker.pkg.dev/${PROJECT_ID}/${AR_REPO_NAME}/${IMAGE_NAME}:${GITHUB_SHA}" \
-          --tag "${REGION}-docker.pkg.dev/${PROJECT_ID}/${AR_REPO_NAME}/${IMAGE_NAME}:latest"
+        gcloud builds submit --config=cloudbuild.yaml . 
