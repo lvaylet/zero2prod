@@ -2,16 +2,16 @@ steps:
 - name: gcr.io/cloud-builders/docker
   script: |
     docker pull \
-      europe-west9-docker.pkg.dev/zero2prod-f45ac1/docker/zero2prod:latest || exit 0
+      europe-west9-docker.pkg.dev/$PROJECT_ID/docker/zero2prod:latest || exit 0
 
 - name: gcr.io/cloud-builders/docker
   script: |
     docker build \
-      -t europe-west9-docker.pkg.dev/zero2prod-f45ac1/docker/zero2prod:$SHORT_SHA \
-      -t europe-west9-docker.pkg.dev/zero2prod-f45ac1/docker/zero2prod:latest \
-      --cache-from europe-west9-docker.pkg.dev/zero2prod-f45ac1/docker/zero2prod:latest \
+      -t europe-west9-docker.pkg.dev/$PROJECT_ID/docker/zero2prod:$SHORT_SHA \
+      -t europe-west9-docker.pkg.dev/$PROJECT_ID/docker/zero2prod:latest \
+      --cache-from europe-west9-docker.pkg.dev/$PROJECT_ID/docker/zero2prod:latest \
       .
 
 images:
-- europe-west9-docker.pkg.dev/zero2prod-f45ac1/docker/zero2prod:$SHORT_SHA
-- europe-west9-docker.pkg.dev/zero2prod-f45ac1/docker/zero2prod:latest
+- europe-west9-docker.pkg.dev/$PROJECT_ID/docker/zero2prod:$SHORT_SHA
+- europe-west9-docker.pkg.dev/$PROJECT_ID/docker/zero2prod:latest
