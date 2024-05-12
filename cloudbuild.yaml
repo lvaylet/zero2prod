@@ -1,5 +1,6 @@
 steps:
 - name: gcr.io/cloud-builders/docker
+  # Use `|| exit 0` so the first build completes when there is no `latest` yet. 
   script: |
     docker pull \
       europe-west9-docker.pkg.dev/$PROJECT_ID/docker/zero2prod:latest || exit 0
