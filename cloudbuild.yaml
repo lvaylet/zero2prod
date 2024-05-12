@@ -12,6 +12,9 @@ steps:
       --cache-from europe-west9-docker.pkg.dev/$PROJECT_ID/docker/zero2prod:latest \
       .
 
+options:
+  automapSubstitutions: true
+
 images:
 - europe-west9-docker.pkg.dev/$PROJECT_ID/docker/zero2prod:$SHORT_SHA
 - europe-west9-docker.pkg.dev/$PROJECT_ID/docker/zero2prod:latest
